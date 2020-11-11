@@ -32,7 +32,14 @@ namespace MyShop
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ShopContext>();
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequireNonAlphanumeric = false; // требуются ли не алфавитно-цифровые символы
+                    options.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+                    options.Password.RequireDigit = false; // требуются ли цифры
+                    options.User.RequireUniqueEmail = true; // уникальный email
+                })
+                .AddEntityFrameworkStores<ShopContext>();
             
             services.AddControllersWithViews();
         }
