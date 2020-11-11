@@ -9,7 +9,11 @@ namespace MyShop.Data
         public ShopContext(DbContextOptions<ShopContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
+
+        public DbSet<ProductModel> Products { get; set; }
+
+        public DbSet<CategoryModel> Categories { get; set; }
     }
 }
