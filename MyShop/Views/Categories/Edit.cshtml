@@ -1,0 +1,28 @@
+﻿@model MyShop.Models.CategoryModel
+
+@{
+    ViewBag.Title = "Изменение категории";
+}
+
+<h2>Изменение категории</h2>
+<form asp-action="Edit" asp-controller="Categories">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input type="text" asp-for="Name" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input type="text" asp-for="Description" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageName" class="control-label"></label>
+        <input type="file" asp-for="ImageName" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
+    </div>
+</form>
