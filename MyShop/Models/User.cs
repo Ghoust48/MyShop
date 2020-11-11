@@ -8,8 +8,5 @@ namespace MyShop.Models
 
         public string LastName { get; set; }
 
-        public string MiddleName { get; set; }
-        
-        
     }
 }
