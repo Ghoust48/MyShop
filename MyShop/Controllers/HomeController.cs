@@ -4,8 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MyShop.Data;
 using MyShop.Models;
+using MyShop.ViewModels.Product;
 
 namespace MyShop.Controllers
 {
@@ -13,14 +16,32 @@ namespace MyShop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ShopContext _context;
+
+        public HomeController(ILogger<HomeController> logger, ShopContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            /*return View(await _context.Products
+                .Include(p => p.Category)
+                .ToListAsync());*/
+            var products = _context.Products
+                .Include(p => p.Category)
+                .AsQueryable();
+
+            var categoryQuery = _context.Categories.OrderBy(c => c.Name);
+
+            var productCategory = new ProductCategoryViewModel
+            {
+                Categories = new List<Models.Category>(await categoryQuery.Distinct().ToListAsync()),
+                Products = await products.ToListAsync()
+            };
+
+            return View(productCategory);
         }
 
         public IActionResult Privacy()

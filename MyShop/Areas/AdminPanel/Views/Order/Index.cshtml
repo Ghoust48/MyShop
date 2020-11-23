@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewBag.Title = "title";
+}
+
+<h2>@ViewBag.Title</h2>
+@*<div style="padding: 1rem 0 1rem">
+    <a asp-area="AdminPanel" asp-controller="Products" asp-action="Create" class="btn btn-sm btn-primary" >Добавить продукт</a>
+</div>*@
+<table class="table">
+    <tr>
+        <th>Имя пользователя</th>
+        <th>Сумма заказа</th>
+        <th>Метод расчета</th>
+        <th>Статус заказа</th>
+        <th>Адрес</th>
+        <th></th>
+    </tr>
+    @foreach (var order in Model)
+    {
+        <tr>
+            <td>@order.UserName</td>
+            <td>@order.GrandTotal</td>
+            <td>@order.PaymentMethod</td>
+            <td>@order.Status</td>
+            <td>@order.ShippingAddress.AddressLine</td>
+            @*<td>
+                <form asp-area="AdminPanel" asp-action="Delete" asp-route-id="@product.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-area="AdminPanel" asp-action="Edit" asp-route-id="@product.Id">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>*@
+        </tr>
+    }
+</table>

@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MyShop.Data;
 using MyShop.Models;
 using MyShop.ViewModels;
 
@@ -10,11 +12,13 @@ namespace MyShop.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly ShopContext _context;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, ShopContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
         
         [HttpGet]
@@ -43,6 +47,7 @@ namespace MyShop.Controllers
                 {
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
+                    await Initialize(user);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -97,6 +102,25 @@ namespace MyShop.Controllers
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        private async Task Initialize(User user)
+        {
+            var wishlist = new Wishlist
+            {
+                UserName = user.Email,
+            };
+                    
+            var cart = new Cart
+            {
+                UserName = user.Email,
+                CartItems = new List<CartItem>()
+            };
+
+            _context.Carts.Add(cart);
+            _context.Wishlists.Add(wishlist);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@using System.ComponentModel
+@model MyShop.ViewModels.Product.ProductCategoryViewModel
+
+<div class="header-advance-search">
+
+    <form asp-controller="Products" asp-action="Index" method="get">
+        <div class="input">
+            <input type="text" asp-for="Search" placeholder="Search your product">
+        </div>
+        <div class="select">
+            <select class="nice-select" asp-for="Category">
+                <option value="">Все</option>
+                @foreach (var item in Model.Categories)
+                {
+                    <option value="@item.Name">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="submit">
+            <button>
+                <i class="icofont icofont-search-alt-1"></i>
+            </button>
+        </div>
+    </form>
+
+</div>

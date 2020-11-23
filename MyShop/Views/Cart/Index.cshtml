@@ -1,0 +1,151 @@
+﻿@model Cart
+
+@{
+    ViewBag.Title = "title";
+}
+
+<!-- Cart Page Start -->
+
+<div class="page-section section pt-90 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @if (Model.CartItems.Any())
+                {
+                    <!-- Cart Table -->
+                    <div class="cart-table table-responsive mb-40">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="pro-thumbnail">Изображение</th>
+                                <th class="pro-title">Товар</th>
+                                <th class="pro-price">Цена</th>
+                                <th class="pro-quantity">Количество</th>
+                                <th class="pro-subtotal">Итого</th>
+                                <th class="pro-remove">Удалить</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in Model.CartItems)
+                            {
+                                <tr>
+                                    <td class="pro-thumbnail">
+                                        <a href="#">
+                                            <img src="assets/images/product/@item.Product.ImageFile" alt="Product">
+                                        </a>
+                                    </td>
+                                    <td class="pro-title">
+                                        <a href="#">@item.Product.Name</a>
+                                    </td>
+                                    <td class="pro-price">
+                                        <span>$@item.Product.UnitPrice</span>
+                                    </td>
+                                    <td class="pro-quantity">
+                                        <form asp-controller="Cart" asp-action="Add" method="post">
+                                            <div class="pro-qty">
+                                                <input id="qty" type="text" asp-for="@item.Quantity" name="quantity">
+                                            </div>
+                                            <input type="hidden" asp-for="@item.Product.Id" name="productId"/>
+                                        </form>
+                                    </td>
+                                    <td class="pro-subtotal">
+                                        <span>@item.TotalPrice</span>
+                                    </td>
+                                    <td class="pro-remove">
+                                        <form asp-controller="Cart" asp-action="Remove" method="post">
+                                            <a href="javascript:;" onclick="parentNode.submit();">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                            <input type="hidden" asp-for="@item.Product.Id" name="productId"/>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-12 mb-15">
+                            <!-- Calculate Shipping -->
+                            <div class="calculate-shipping">
+                                <h4>Рассчитать стоимость доставки</h4>
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <select class="nice-select">
+                                                <option>Беларусь</option>
+                                                <option>Россия</option>
+                                                <option>Украина</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <select class="nice-select">
+                                                <option>Минск</option>
+                                                <option>Витебск</option>
+                                                <option>Гомель</option>
+                                                <option>Могилев</option>
+                                                <option>Полоцк</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <input type="text" placeholder="Почтовый индекс">
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <input type="submit" value="Рассчитать">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Discount Coupon -->
+                            <div class="discount-coupon">
+                                <h4>Купон</h4>
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <input type="text" placeholder="Код купона">
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-25">
+                                            <input type="submit" value="Проверить">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Cart Summary -->
+                        <div class="col-lg-6 col-12 mb-40 d-flex">
+                            <div class="cart-summary">
+                                <div class="cart-summary-wrap">
+                                    <h4>Сводка корзины</h4>
+                                    <p>Промежуточный итог <span>$@Model.GrandTotal</span></p>
+                                    <p>Стоимость доставки <span>$00.00</span></p>
+                                    <h2>Общая сумма <span>$@Model.GrandTotal</span></h2>
+                                </div>
+                                <div class="cart-summary-button">
+                                    @*<form asp-controller="Order" asp-action="index">
+                                        <input type="hidden" asp-for="@Model.Id" name="cartId"/>
+                                        <button class="checkout-btn">Оформить заказ</button>
+                                    </form>*@
+                                    <a asp-controller="Order" asp-action="Add" asp-route-cartId="@Model.Id" class="btn checkout-btn">
+                                        Оформить заказ
+                                    </a>
+                                    <button class="update-btn">Обновить корзину</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <h2>Корзина пуста!</h2>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart Page End -->

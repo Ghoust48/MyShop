@@ -1,33 +1,60 @@
 ﻿@model MyShop.ViewModels.RegisterViewModel
-<h2>Регистрация нового пользователя</h2>
-<form method="post" asp-controller="Account" asp-action="Register">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="FirstName"></label><br/>
-        <input asp-for="FirstName"/>
-        <span asp-validation-for="FirstName"></span>
+
+@{
+    ViewBag.Title = "Регистрация нового пользователя";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <partial name="_Styles"></partial>
+</head>
+<body>
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+
+        <div class="col-md-4">
+
+            <form id="account" method="post">
+                <h4>@ViewBag.Title</h4>
+                <hr/>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FirstName"></label><br/>
+                    <input asp-for="FirstName" class="form-control"/>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName"></label><br/>
+                    <input asp-for="LastName" class="form-control"/>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control"/>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PasswordConfirm"></label>
+                    <input asp-for="PasswordConfirm" class="form-control"/>
+                    <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+
     </div>
-    <div>
-        <label asp-for="LastName"></label><br/>
-        <input asp-for="LastName"/>
-        <span asp-validation-for="LastName"></span>
-    </div>
-    <div>
-        <label asp-for="Email"></label><br/>
-        <input asp-for="Email"/>
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br/>
-        <input asp-for="Password"/>
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="PasswordConfirm"></label><br/>
-        <input asp-for="PasswordConfirm"/>
-        <span asp-validation-for="PasswordConfirm"></span>
-    </div>
-    <div>
-        <input type="submit" value="Регистрация"/>
-    </div>
-</form>
+</div>
+</body>
+<partial name="_Scripts"></partial>
+</html>

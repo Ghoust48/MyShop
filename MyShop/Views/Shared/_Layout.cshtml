@@ -1,60 +1,190 @@
-﻿<!DOCTYPE html>
+﻿@using MyShop.ViewModels.Product
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - MyShop</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
+    <partial name="_Styles"></partial>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<!-- Header Section Start -->
+<div class="header-section section">
+
+    <!-- Header Top Start -->
+    <div class="header-top header-top-one header-top-border pt-10 pb-10">
         <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyShop</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
-                    </li>
-                </ul>
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col mt-10 mb-10">
+                    <!-- Header Links Start -->
+                    <div class="header-links">
+                        <a asp-area="" asp-page="/TrackOrder">
+                            <img src="~/assets/images/icons/car.png" alt="Car Icon"> <span>Track your order</span>
+                        </a>
+                        @*<a asp-area="" asp-page="/Store">
+                            <img src="~/assets/images/icons/marker.png" alt="Car Icon"> <span>Locate Store</span>
+                        </a>*@
+                    </div><!-- Header Links End -->
+                </div>
+
+                <div class="col order-12 order-xs-12 order-lg-2 mt-10 mb-10">
+                    <!-- Header Advance Search Start -->
+                    @await Component.InvokeAsync("Search")
+                    <!-- Header Advance Search End -->
+                </div>
+
+                <div class="col order-2 order-xs-2 order-lg-12 mt-10 mb-10">
+                    <partial name="_LoginAccount"/>
+                </div>
             </div>
         </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2020 - MyShop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Header Top End -->
+
+    <!-- Header Bottom Start -->
+    <div class="header-bottom header-bottom-one header-sticky">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col mt-15 mb-15">
+                    <!-- Logo Start -->
+                    <div class="header-logo">
+                        <a asp-controller="Home" asp-action="Index">
+                            <img src="~/assets/images/logo.png" alt="E&E - Electronics eCommerce Bootstrap4 HTML Template">
+                            <img class="theme-dark" src="~/assets/images/logo-light.png" alt="E&E - Electronics eCommerce Bootstrap4 HTML Template">
+                        </a>
+                    </div><!-- Logo End -->
+                </div>
+
+                <div class="col order-12 order-lg-2 order-xl-2 d-none d-lg-block">
+                    <!-- Main Menu Start -->
+                    <div class="main-menu">
+                        <nav>
+                            <ul>
+                                <li class="active">
+                                    <a asp-controller="Home" asp-action="Index">HOME</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Products" asp-action="Index">Shop</a>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="#">PAGES</a>
+                                    <ul class="mega-menu three-column">
+                                        <li>
+                                            <a href="#">Column One</a>
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-page="/AboutUs">About us</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/BestDeals">Best Deals</a>
+                                                </li>
+                                                <li>
+                                                    <a @*asp-controller="Cart" asp-action="Index"*@>Cart</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/CheckOut">Checkout</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Column Two</a>
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Compare">Compare</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Faq">Faq</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Feature">Feature</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Login">Login</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Register">Register</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Store">Store</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Column Three</a>
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-page="/TermsConditions">Terms & Conditions</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/TackOrder">Track Order</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/Wishlist">Wishlist</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @*<li class="menu-item-has-children">
+                                    <a href="#">Категории</a>
+                                    <ul class="mega-menu first-column">
+                                        <li>
+                                            <a href="#">Column One</a>
+                                            <ul>
+                                                <li>
+                                                    <a asp-area="" asp-page="/AboutUs">About us</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/BestDeals">Best Deals</a>
+                                                </li>
+                                                <li>
+                                                    <a $1$asp-controller="Cart" asp-action="Index"#1#>Cart</a>
+                                                </li>
+                                                <li>
+                                                    <a asp-area="" asp-page="/CheckOut">Checkout</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>*@
+                                
+                                <li>
+                                    <a asp-area="" asp-page="/Contact">CONTACT</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div><!-- Main Menu End -->
+                </div>
+
+                <div class="col order-2 order-lg-12 order-xl-12">
+                    <!-- Header Shop Links Start -->
+                    <div class="header-shop-links">
+
+                        @await Component.InvokeAsync("WishlistCounter")
+
+                        @await Component.InvokeAsync("CartCounter")
+                        
+                    </div>
+                    
+                    <!-- Header Shop Links End -->
+                </div>
+                <!-- Mobile Menu -->
+                <div class="mobile-menu order-12 d-block d-lg-none col"></div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Header Bottom End -->
+</div>
+<!-- Header Section End -->
+
+@RenderBody();
+
+<partial name="_Footer"></partial>
+
+<partial name="_Scripts"></partial>
 @RenderSection("Scripts", required: false)
 </body>
 </html>

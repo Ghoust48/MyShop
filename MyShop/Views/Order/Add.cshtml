@@ -1,0 +1,183 @@
+﻿@model Order
+
+@{
+    ViewBag.Title = "title";
+}
+
+<!-- Checkout Page Start -->
+<div class="page-section section mt-90 mb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                <!-- Checkout Form s-->
+                <form asp-controller="Order" asp-action="Add" method="post" class="checkout-form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row row-40">
+
+                        <div class="col-lg-7 mb-20">
+
+                            <!-- Shipping Address -->
+                            <div  class="mb-40"> @*id="shipping-form"*@
+                                <h4 class="checkout-title">Shipping Address</h4>
+
+                                <div class="row">
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.FirstName"></label>
+                                        <input asp-for="ShippingAddress.FirstName" type="text" placeholder="First Name" />
+                                        <span asp-validation-for="ShippingAddress.FirstName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.LastName"></label>
+                                        <input asp-for="ShippingAddress.LastName" type="text" placeholder="Last Name" />
+                                        <span asp-validation-for="ShippingAddress.LastName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.EmailAddress"></label>
+                                        <input asp-for="ShippingAddress.EmailAddress" type="text" placeholder="Email Address" />
+                                        <span asp-validation-for="ShippingAddress.EmailAddress" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.PhoneNo"></label>
+                                        <input asp-for="ShippingAddress.PhoneNo" type="text" placeholder="Phone number" />
+                                        <span asp-validation-for="ShippingAddress.PhoneNo" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-12 mb-20">
+                                        <label asp-for="ShippingAddress.AddressLine"></label>
+                                        <input asp-for="ShippingAddress.AddressLine" type="text" placeholder="Address Line" />
+                                        <span asp-validation-for="ShippingAddress.AddressLine" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.Country"></label>
+                                        <select asp-for="ShippingAddress.Country" class="nice-select">
+                                            <option>Turkey</option>
+                                            <option>China</option>
+                                            <option>Russia</option>
+                                            <option>India</option>
+                                            <option>Japan</option>
+                                        </select>
+                                        <span asp-validation-for="ShippingAddress.Country" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.City"></label>
+                                        <input asp-for="ShippingAddress.City" type="text" placeholder="City" />
+                                        <span asp-validation-for="ShippingAddress.City" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.State"></label>
+                                        <input asp-for="ShippingAddress.State" type="text" placeholder="State" />
+                                        <span asp-validation-for="ShippingAddress.State" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-12 mb-20">
+                                        <label asp-for="ShippingAddress.ZipCode"></label>
+                                        <input asp-for="ShippingAddress.ZipCode" type="text" placeholder="ZipCode" />
+                                        <span asp-validation-for="ShippingAddress.ZipCode" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-5">
+                            <div class="row">
+
+                                <!-- Cart Total -->
+                                <div class="col-12 mb-60">
+
+                                    <h4 class="checkout-title">Cart Total</h4>
+
+                                    <div class="checkout-cart-total">
+
+                                        <h4>Product <span>Total</span></h4>
+                                        <ul>
+                                            @if (Model.OrderItems.Any())
+                                            {
+                                                foreach (var cartItem in Model.OrderItems)
+                                                {
+                                                    <li>@cartItem.Product.Name X @cartItem.Quantity <span>$@cartItem.TotalPrice</span></li>
+                                                }
+                                            }
+                                        </ul>
+
+                                        <p>Sub Total <span>$@Model.GrandTotal</span></p>
+                                        <p>Shipping Fee <span>$00.00</span></p>
+
+                                        <h4>Grand Total <span>$@Model.GrandTotal</span></h4>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Payment Method -->
+                                <div class="col-12 mb-60">
+
+                                    <h4 class="checkout-title">Payment Method</h4>
+
+                                    <div class="checkout-payment-method">
+
+                                        <div class="single-method">
+                                            <input asp-for="PaymentMethod" type="radio" id="payment_check" name="payment-method" value="check">
+                                            <label for="payment_check">Check Payment</label>
+                                            <p data-method="check">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                        </div>
+
+                                        <div class="single-method">
+                                            <input asp-for="PaymentMethod" type="radio" id="payment_bank" name="payment-method" value="bank">
+                                            <label for="payment_bank">Direct Bank Transfer</label>
+                                            <p data-method="bank">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                        </div>
+
+                                        <div class="single-method">
+                                            <input asp-for="PaymentMethod" type="radio" id="payment_cash" name="payment-method" value="cash">
+                                            <label for="payment_cash">Cash on Delivery</label>
+                                            <p data-method="cash">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                        </div>
+
+                                        <div class="single-method">
+                                            <input asp-for="PaymentMethod" type="radio" id="payment_paypal" name="payment-method" value="paypal">
+                                            <label for="payment_paypal">Paypal</label>
+                                            <p data-method="paypal">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                        </div>
+
+                                        <div class="single-method">
+                                            <input asp-for="PaymentMethod" type="radio" id="payment_payoneer" name="payment-method" value="payoneer">
+                                            <label for="payment_payoneer">Payoneer</label>
+                                            <p data-method="payoneer">Please send a Check to Store name with Store Street, Store Town, Store State, Store Postcode, Store Country.</p>
+                                        </div>
+
+                                        <div class="single-method">
+                                            <input type="checkbox" id="accept_terms">
+                                            <label for="accept_terms">I’ve read and accept the terms & conditions</label>
+                                        </div>
+
+                                    </div>
+
+                                    @*<input type="hidden" name="orderModel.OrderItems">*@
+                                    <button class="place-order">Place order</button>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Checkout Page End -->
+

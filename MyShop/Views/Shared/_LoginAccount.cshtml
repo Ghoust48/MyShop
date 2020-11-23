@@ -1,0 +1,36 @@
+﻿
+<div class="header-account-links">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        
+
+        <div class="container">
+            <div class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="icofont icofont-user-alt-7"></i> <span>@User.Identity.Name?.Split('@').FirstOrDefault()</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <form class="form-inline" asp-area="AdminPanel" asp-controller="Home" asp-action="Index">
+                        <button id="admin" type="submit" class="dropdown-item">
+                            <i class="icofont icofont-spanner"></i> <span>Admin Panel</span>
+                        </button>
+                    </form>
+                    <div class="dropdown-divider"></div>
+                    <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout">
+                        <button id="logout" type="submit" class="dropdown-item">
+                            <i class="icofont icofont-logout"></i> <span>Logout</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <a id="register" asp-controller="Account" asp-action="Register"><i class="icofont icofont-user-alt-7"></i> <span>Register</span></a>
+        <a id="login" asp-controller="Account" asp-action="Login"><i class="icofont icofont-login d-none"></i> <span>Login</span></a>
+    }
+
+</div>
+

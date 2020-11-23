@@ -1,0 +1,63 @@
+﻿@model Product
+
+<div class="ee-product">
+    <!-- Image -->
+    <div class="image">
+        <a asp-controller="Products" asp-action="Details" asp-route-slug="@Model.Slug" class="img">
+            <img src="assets/images/product/@Model.ImageFile" alt="Product Image">
+        </a>
+        <div class="wishlist-compare">
+            @*@if (tmp.Count == 0)
+            {*@
+                <form asp-controller="Wishlist" asp-action="Add" method="post" name="AddToWishlistForm" id="add_wishlist_form">
+                    <a href="javascript:;" onclick="parentNode.submit();" data-tooltip="Wishlist">
+                        <i class="ti-heart"></i>
+                    </a>
+                    <input type="hidden" asp-for="@Model.Id" name="productId"/>
+                </form>
+            @*}
+            else
+            {
+                <a href="javascript:;" data-tooltip="Wishlist">
+                    <i class="ti-heart-broken"></i>
+                </a>
+            }*@
+        </div>
+        <form asp-controller="Cart" asp-action="Add" method="post" name="addToCartForm" id="add_cart_form">
+            <a href="javascript:;" onclick="parentNode.submit();" class="add-to-cart">
+                <i class="ti-shopping-cart"></i><span>ADD TO CART</span>
+            </a>
+            <input type="hidden" asp-for="@Model.Id" name="productId"/>
+        </form>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- Category & Title -->
+        <div class="category-title">
+
+            <a asp-controller="Products" asp-action="Index" class="cat">@Model.Category.Name</a>
+            <h5 class="title">
+                <a asp-controller="Products" asp-action="Details" asp-route-slug="@Model.Slug">@Model.Name</a>
+            </h5>
+
+        </div>
+
+        <!-- Price & Ratting -->
+        <div class="price-ratting">
+
+            <h5 class="price">$@Model.UnitPrice</h5>
+            <div class="ratting">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+                <i class="fa fa-star-o"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

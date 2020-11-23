@@ -1,24 +1,64 @@
 ﻿@model MyShop.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Вход в приложение";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <partial name="_Styles"></partial>
+</head>
+<body>
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        
+        <div class="col-md-4">
+
+            <form id="account" method="post">
+                                <h4>@ViewBag.Title</h4>
+                                <hr/>
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" class="form-control"/>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input asp-for="Password" class="form-control"/>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label asp-for="RememberMe"></label>
+                                        <input asp-for="RememberMe"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Log in</button>
+                                </div>
+                                <div class="form-group">
+                                    <p>
+                                        @*<a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>*@
+                                    </p>
+                                    <p>
+                                        <a asp-controller="Account" asp-action="Register">Зарегистрируйтесь как новый пользователь</a>
+                                    </p>
+                                </div>
+                            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+<partial name="_Scripts"></partial>
+</html>
+
+
+
+
  
-<h2>Вход в приложение</h2>
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Войти" />
-    </div>
-</form>
