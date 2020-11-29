@@ -15,8 +15,16 @@ namespace MyShop.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            /*builder.Entity<User>().HasData(new User
+            {
+                FirstName = "Admin",
+                LastName = "Admin",
+                
+            })*/
+
             builder.Entity<ProductWishlist>()
-                .HasKey(table => new { table.ProductId, table.WishlistId });
+                .HasKey(table => new {table.ProductId, table.WishlistId});
 
             builder.Entity<ProductWishlist>()
                 .HasOne(pw => pw.Product)
@@ -44,5 +52,15 @@ namespace MyShop.Data
         public DbSet<OrderItem> OrderItems { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Battery> Batteries { get; set; }
+
+        public DbSet<Housing> Housings { get; set; }
+
+        public DbSet<Memory> Memories { get; set; }
+
+        public DbSet<Processor> Processors { get; set; }
+
+        public DbSet<Screen> Screens { get; set; }
     }
 }

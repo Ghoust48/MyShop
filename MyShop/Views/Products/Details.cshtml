@@ -224,14 +224,69 @@
                     </div>
                     <div class="tab-pane fade" id="product-specifications">
                         <div class="single-product-specification">
-                            <ul>
-                                <li>Full HD Camcorder</li>
-                                <li>Dual Video Recording</li>
-                                <li>X type battery operation</li>
-                                <li>Full HD Camcorder</li>
-                                <li>Dual Video Recording</li>
-                                <li>X type battery operation</li>
-                            </ul>
+                            <div class="row">
+                                <div class="col">
+                                    <p><b>@Html.DisplayNameFor(p => p.Screen)</b></p>
+                                    <ul>
+                                        <li>@Html.DisplayNameFor(p => p.Screen.Resolution): @Model.Screen.Resolution</li>
+                                        <li>@Html.DisplayNameFor(p => p.Screen.Diagonal): @Model.Screen.Diagonal</li>
+                                        <li>@Html.DisplayNameFor(p => p.Screen.MatrixType): @Model.Screen.MatrixType</li>
+                                        <li>@Html.DisplayNameFor(p => p.Screen.Surface): @Model.Screen.Surface</li>
+                                        <li>@Html.DisplayNameFor(p => p.Screen.Multitouch): @Html.DisplayFor(p => p.Screen.Multitouch)</li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <p><b>@Html.DisplayNameFor(p => p.Processor)</b></p>
+                                    <ul>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.Platform): @Model.Processor.Platform</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.ProcessorType): @Model.Processor.ProcessorType</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.ClockSpeed): @Model.Processor.ClockSpeed</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.Cores): @Model.Processor.Cores</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.Microarchitecture): @Model.Processor.Microarchitecture</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.TechnicalProcess): @Model.Processor.TechnicalProcess</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.GraphicsAccelerator): @Model.Processor.GraphicsAccelerator</li>
+                                        <li>@Html.DisplayNameFor(p => p.Processor.GPUFrequency): @Model.Processor.GPUFrequency</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(p => p.Memory)</b>
+                                    </p>
+                                    <ul>
+                                        <li>@Html.DisplayNameFor(p => p.Memory.PersistentMemory): @Model.Memory.PersistentMemory</li>
+                                        <li>@Html.DisplayNameFor(p => p.Memory.RAM): @Model.Memory.RAM</li>
+                                        <li>@Html.DisplayNameFor(p => p.Memory.MemoryCardSupport): @Html.DisplayFor(p => p.Memory.MemoryCardSupport)</li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(p => p.Housing)</b>
+                                    </p>
+                                    <ul>
+                                        <li>@Html.DisplayNameFor(p => p.Housing.Design): @Model.Housing.Design</li>
+                                        <li>@Html.DisplayNameFor(p => p.Housing.BodyMaterial): @Model.Housing.BodyMaterial</li>
+                                        <li>@Html.DisplayNameFor(p => p.Housing.Colour): @Model.Housing.Colour</li>
+                                        <li>@Html.DisplayNameFor(p => p.Housing.GlassConstruction): @Model.Housing.GlassConstruction</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        <b>@Html.DisplayNameFor(p => p.Battery)</b>
+                                    </p>
+                                    <ul>
+                                        <li>@Html.DisplayNameFor(p => p.Battery.Type): @Model.Battery.Type</li>
+                                        <li>@Html.DisplayNameFor(p => p.Battery.Capacity): @Model.Battery.Capacity</li>
+                                        <li>@Html.DisplayNameFor(p => p.Battery.MaxWorkingHours): @Model.Battery.MaxWorkingHours</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-reviews">
@@ -377,7 +432,7 @@
 <!-- Single Product Section End -->
 
 <!-- Related Product Section Start -->
-<div class="product-section section mb-70">
+@*<div class="product-section section mb-70">
     <div class="container">
         <div class="row">
 
@@ -668,5 +723,5 @@
 
         </div>
     </div>
-</div>
+</div>*@
 <!-- Related Product Section End -->

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Order>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Заказы";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -14,7 +14,6 @@
         <th>Сумма заказа</th>
         <th>Метод расчета</th>
         <th>Статус заказа</th>
-        <th>Адрес</th>
         <th></th>
     </tr>
     @foreach (var order in Model)
@@ -24,15 +23,9 @@
             <td>@order.GrandTotal</td>
             <td>@order.PaymentMethod</td>
             <td>@order.Status</td>
-            <td>@order.ShippingAddress.AddressLine</td>
-            @*<td>
-                <form asp-area="AdminPanel" asp-action="Delete" asp-route-id="@product.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-area="AdminPanel" asp-action="Edit" asp-route-id="@product.Id">Изменить</a>
-                    <button type="submit" class="btn btn-sm btn-danger">
-                        Удалить
-                    </button>
-                </form>
-            </td>*@
+            <td>
+                <a class="btn btn-sm btn-primary" asp-area="AdminPanel" asp-action="Get" asp-route-orderId="@order.Id">Подробнее</a>
+            </td>
         </tr>
     }
 </table>

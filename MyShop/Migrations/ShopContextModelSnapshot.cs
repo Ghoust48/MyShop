@@ -158,35 +158,71 @@ namespace MyShop.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("AddressLine")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("PhoneNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ZipCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Battery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Capacity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("MaxWorkingHours")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Batteries");
                 });
 
             modelBuilder.Entity("MyShop.Models.Cart", b =>
@@ -253,6 +289,51 @@ namespace MyShop.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("MyShop.Models.Housing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("BodyMaterial")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Colour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Design")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GlassConstruction")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Housings");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Memory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<bool>("MemoryCardSupport")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PersistentMemory")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RAM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Memories");
+                });
+
             modelBuilder.Entity("MyShop.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -310,6 +391,42 @@ namespace MyShop.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("MyShop.Models.Processor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ClockSpeed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Cores")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GPUFrequency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GraphicsAccelerator")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Microarchitecture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Platform")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProcessorType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TechnicalProcess")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Processors");
+                });
+
             modelBuilder.Entity("MyShop.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -317,17 +434,32 @@ namespace MyShop.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("BatteryId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HousingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageFile")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MemoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProcessorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ScreenId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
@@ -343,7 +475,17 @@ namespace MyShop.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BatteryId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("HousingId");
+
+                    b.HasIndex("MemoryId");
+
+                    b.HasIndex("ProcessorId");
+
+                    b.HasIndex("ScreenId");
 
                     b.ToTable("Products");
                 });
@@ -361,6 +503,33 @@ namespace MyShop.Migrations
                     b.HasIndex("WishlistId");
 
                     b.ToTable("ProductWishlist");
+                });
+
+            modelBuilder.Entity("MyShop.Models.Screen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Diagonal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MatrixType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Multitouch")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Resolution")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surface")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Screens");
                 });
 
             modelBuilder.Entity("MyShop.Models.User", b =>
@@ -537,11 +706,41 @@ namespace MyShop.Migrations
 
             modelBuilder.Entity("MyShop.Models.Product", b =>
                 {
+                    b.HasOne("MyShop.Models.Battery", "Battery")
+                        .WithMany()
+                        .HasForeignKey("BatteryId");
+
                     b.HasOne("MyShop.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
+                    b.HasOne("MyShop.Models.Housing", "Housing")
+                        .WithMany()
+                        .HasForeignKey("HousingId");
+
+                    b.HasOne("MyShop.Models.Memory", "Memory")
+                        .WithMany()
+                        .HasForeignKey("MemoryId");
+
+                    b.HasOne("MyShop.Models.Processor", "Processor")
+                        .WithMany()
+                        .HasForeignKey("ProcessorId");
+
+                    b.HasOne("MyShop.Models.Screen", "Screen")
+                        .WithMany()
+                        .HasForeignKey("ScreenId");
+
+                    b.Navigation("Battery");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Housing");
+
+                    b.Navigation("Memory");
+
+                    b.Navigation("Processor");
+
+                    b.Navigation("Screen");
                 });
 
             modelBuilder.Entity("MyShop.Models.ProductWishlist", b =>

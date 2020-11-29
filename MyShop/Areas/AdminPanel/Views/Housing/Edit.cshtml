@@ -1,0 +1,39 @@
+﻿@model Housing
+
+@{
+    ViewBag.Title = "Изменение корпуса";
+}
+
+<h2>@ViewBag.Title</h2>
+<form asp-area="AdminPanel" asp-action="Edit" asp-controller="Products">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id"/>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Design" class="control-label"></label>
+            <input type="text" asp-for="Design" value="@Model.Design" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="Colour" class="control-label"></label>
+            <input type="text" asp-for="Colour" value="@Model.Colour" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="BodyMaterial" class="control-label"></label>
+            <input type="text" asp-for="BodyMaterial" value="@Model.BodyMaterial" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="GlassConstruction" class="control-label"></label>
+            <input type="text" asp-for="GlassConstruction" value="@Model.GlassConstruction" class="form-control"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
+    </div>
+</form>

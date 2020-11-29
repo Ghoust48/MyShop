@@ -5,14 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="itext7.pdfhtml" Version="3.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-      <PackageReference Include="Syncfusion.HtmlToPdfConverter.QtWebKit.Net.Core" Version="18.3.0.47" />
+      <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +27,12 @@
       <_ContentIncludedByDefault Remove="Views\Roles\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Roles\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Roles\UserList.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="wkhtmltopdf\Windows\wkhtmltopdf.exe">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

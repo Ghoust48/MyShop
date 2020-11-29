@@ -1,0 +1,40 @@
+﻿@model PaginatedList<Product>
+
+@*@await Html.PartialAsync("_ProductsAjax");*@
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<!-- Pagination -->
+<ul class="pagination">
+            <li>
+                <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="@prevDisabled">
+                    <i class="fa fa-angle-left"></i>
+                    Back
+                </a>
+            </li>
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                if (Model.PageIndex == i)
+                {
+                    <li class="active">
+                        <a asp-action="Index" asp-route-pageNumber="@Model.PageIndex">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-action="Index" asp-route-pageNumber="@Model.PageIndex">@i</a>
+                    </li>
+                }
+            }
+
+            <li>
+                <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="@nextDisabled">
+                    Next
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+<!-- Pagination End -->

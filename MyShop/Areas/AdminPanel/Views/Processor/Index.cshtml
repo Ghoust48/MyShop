@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Processor>
+
+@{
+    ViewBag.Title = "Процессоры";
+}
+
+<h2>@ViewBag.Title</h2>
+<div style="padding: 1rem 0 1rem">
+    <a asp-area="AdminPanel" asp-controller="Processor" asp-action="Create" class="btn btn-sm btn-primary" >Добавить процессор</a>
+</div>
+<table class="table">
+    <tr>
+        <th>Платформа</th>
+        <th>Тип процессора</th>
+        <th>Тактовая частота процессора</th>
+        <th>Количество ядер</th>
+        <th>Микроархитектура ЦПУ</th>
+        <th>Техпроцесс</th>
+        <th>Графический ускоритель</th>
+        <th>Частота графического процессора</th>
+    </tr>
+    @foreach (var processor in Model)
+    {
+        <tr>
+            <td>@processor.Platform</td>
+            <td>@processor.ProcessorType</td>
+            <td>@processor.ClockSpeed</td>
+            <td>@processor.Cores</td>
+            <td>@processor.Microarchitecture</td>
+            <td>@processor.TechnicalProcess</td>
+            <td>@processor.GraphicsAccelerator</td>
+            <td>@processor.GPUFrequency</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@processor.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@processor.Id">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

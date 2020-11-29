@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyShop.Data;
 using MyShop.Models;
+using Wkhtmltopdf.NetCore;
 
 namespace MyShop
 {
@@ -42,6 +43,7 @@ namespace MyShop
                 .AddEntityFrameworkStores<ShopContext>();
             
             services.AddControllersWithViews();
+            services.AddWkhtmltopdf("wkhtmltopdf");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

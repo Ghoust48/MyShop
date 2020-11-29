@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Memory>
+
+@{
+    ViewBag.Title = "Память";
+}
+
+<h2>@ViewBag.Title</h2>
+<div style="padding: 1rem 0 1rem">
+    <a asp-area="AdminPanel" asp-controller="Memory" asp-action="Create" class="btn btn-sm btn-primary" >Добавить память</a>
+</div>
+<table class="table">
+    <tr>
+        <th>Постоянная память</th>
+        <th>Поддержка карт памяти</th>
+        <th>Оперативная память</th>
+    </tr>
+    @foreach (var memory in Model)
+    {
+        <tr>
+            <td>@memory.PersistentMemory</td>
+            <td>@memory.MemoryCardSupport</td>
+            <td>@memory.RAM</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@memory.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@memory.Id">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

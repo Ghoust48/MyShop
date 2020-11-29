@@ -6,26 +6,6 @@ namespace MyShop.Models
     {
         public int Id { get; set; }
         
-        public string FirstName { get; set; }
-        
-        public string LastName { get; set; }
-        
-        public string EmailAddress { get; set; }
-        
-        public string PhoneNo { get; set; }
-        
-        public string AddressLine { get; set; }
-        
-        public string Country { get; set; }
-        
-        public string City { get; set; }
-        
-        public string State { get; set; }
-        
-        public string ZipCode { get; set; }
-        
-        /*public int Id { get; set; }
-        
         [Required]
         [MinLength(5), MaxLength(100)]
         public string FirstName { get; set; }
@@ -60,6 +40,6 @@ namespace MyShop.Models
         
         [Required]
         [DataType(DataType.PostalCode)]
-        public string ZipCode { get; set; }*/
+        public string ZipCode { get; set; }
     }
 }

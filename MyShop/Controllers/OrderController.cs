@@ -1,16 +1,11 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
-using MyShop.Extensions;
 using MyShop.Models;
-using Syncfusion.HtmlConverter;
-using Syncfusion.Pdf;
+using Wkhtmltopdf.NetCore;
 
 namespace MyShop.Controllers
 {
@@ -18,12 +13,12 @@ namespace MyShop.Controllers
     {
         private readonly ShopContext _context;
 
-        private readonly IWebHostEnvironment _environment;
+        private readonly IGeneratePdf _generatePdf;
 
-        public OrderController(ShopContext context, IWebHostEnvironment environment)
+        public OrderController(ShopContext context, IGeneratePdf generatePdf)
         {
             _context = context;
-            _environment = environment;
+            _generatePdf = generatePdf;
         }
 
         public async Task<IActionResult> Add(int cartId)
@@ -60,26 +55,29 @@ namespace MyShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(Order orderModel)
         {
+            var cart = _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefault(c => c.UserName == User.Identity.Name);
+
+            orderModel.UserName = cart.UserName;
+            orderModel.GrandTotal = cart.GrandTotal;
+            orderModel.OrderItems = cart.CartItems.Select(ci => new OrderItem
+            {
+                Product = ci.Product,
+                Quantity = ci.Quantity,
+                TotalPrice = ci.TotalPrice.Value
+            }).ToList();
+            
             if (ModelState.IsValid)
             {
-                var cart = _context.Carts.Include(c => c.CartItems)
-                    .ThenInclude(ci => ci.Product)
-                    .FirstOrDefault(c => c.UserName == User.Identity.Name);
-
-                orderModel.UserName = cart.UserName;
-                orderModel.GrandTotal = cart.GrandTotal;
-                orderModel.OrderItems = cart.CartItems.Select(ci => new OrderItem
-                {
-                    Product = ci.Product,
-                    Quantity = ci.Quantity,
-                    TotalPrice = ci.TotalPrice.Value
-                }).ToList();
-
                 _context.Orders.Add(orderModel);
                 await _context.SaveChangesAsync();
+                
+                return RedirectToAction(nameof(Finish), orderModel);
             }
 
-            return RedirectToAction(nameof(Invoice), orderModel);
+            return View(orderModel);
         }
 
         /*[HttpGet]
@@ -100,7 +98,7 @@ namespace MyShop.Controllers
         */
 
         [HttpGet]
-        public async Task<IActionResult> Invoice(Order orderModel)
+        public async Task<IActionResult> Finish(Order orderModel)
         {
             try
             {
@@ -123,7 +121,7 @@ namespace MyShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InvoicePdf(int orderId)
+        public async Task<IActionResult> Invoice(int orderId)
         {
             var orders = await _context.Orders
                 .Include(o => o.ShippingAddress)
@@ -133,32 +131,7 @@ namespace MyShop.Controllers
 
             var order = orders.FirstOrDefault(o => o.Id == orderId);
             
-            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
-
-            WebKitConverterSettings settings = new WebKitConverterSettings();
-
-            //Set WebKit path
-            settings.WebKitPath = Path.Combine(_environment.ContentRootPath, "QtBinariesWindows");
-
-            //Assign WebKit settings to HTML converter
-            htmlConverter.ConverterSettings = settings;
-
-            //Convert URL to PDF
-            PdfDocument document = htmlConverter.Convert("https://localhost:5001/Order/Invoice");
-            
-            MemoryStream ms = new MemoryStream();
-            document.Save(ms);
-
-            return File(ms.ToArray(), System.Net.Mime.MediaTypeNames.Application.Pdf, "Output.pdf");
-
-            /*IronPdf.Installation.TempFolderPath = $"{_environment.ContentRootPath}/irontemp/";
-            IronPdf.Installation.LinuxAndDockerDependenciesAutoConfig = true;
-
-            var html = this.RenderViewAsync("_Invoice", order);
-            var pdfRender = new IronPdf.HtmlToPdf();
-            var pdfDoc = pdfRender.RenderHtmlAsPdf(html.Result);
-
-            return File(pdfDoc.Stream.ToArray(), "application/pdf");*/
+            return await _generatePdf.GetPdf("Views/Order/Invoice.cshtml", order);
         }
 
         private async Task ClearCart()

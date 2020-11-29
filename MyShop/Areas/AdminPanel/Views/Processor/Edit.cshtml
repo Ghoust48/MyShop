@@ -1,0 +1,61 @@
+﻿@model Processor
+
+@{
+    ViewBag.Title = "Изменение процессора";
+}
+
+<h2>@ViewBag.Title</h2>
+<form asp-area="AdminPanel" asp-action="Edit" asp-controller="Processor">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id"/>
+    </div>
+    
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Platform" class="control-label"></label>
+            <input asp-for="Platform" value="@Model.Platform" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="ProcessorType" class="control-label"></label>
+            <input asp-for="ProcessorType" value="@Model.ProcessorType" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="ClockSpeed" class="control-label"></label>
+            <input asp-for="ClockSpeed" value="@Model.ClockSpeed" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="Cores" class="control-label"></label>
+            <input asp-for="Cores" value="@Model.Cores" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Microarchitecture" class="control-label"></label>
+            <input asp-for="Microarchitecture" value="@Model.Microarchitecture" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="TechnicalProcess" class="control-label"></label>
+            <input asp-for="TechnicalProcess" value="@Model.TechnicalProcess" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="GraphicsAccelerator" class="control-label"></label>
+            <input asp-for="GraphicsAccelerator" value="@Model.GraphicsAccelerator" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="GPUFrequency" class="control-label"></label>
+            <input asp-for="GPUFrequency" value="@Model.GPUFrequency" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
+    </div>
+</form>

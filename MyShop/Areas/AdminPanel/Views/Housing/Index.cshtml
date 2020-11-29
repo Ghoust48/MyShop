@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Housing>
+
+@{
+    ViewBag.Title = "Корпус";
+}
+
+<h2>@ViewBag.Title</h2>
+<div style="padding: 1rem 0 1rem">
+    <a asp-area="AdminPanel" asp-controller="Housing" asp-action="Create" class="btn btn-sm btn-primary" >Добавить корпус</a>
+</div>
+<table class="table">
+    <tr>
+        <th>Конструкция</th>
+        <th>Цвет</th>
+        <th>Материал корпуса</th>
+        <th>Конструкция стекла</th>
+    </tr>
+    @foreach (var housing in Model)
+    {
+        <tr>
+            <td>@housing.Design</td>
+            <td>@housing.Colour</td>
+            <td>@housing.BodyMaterial</td>
+            <td>@housing.GlassConstruction</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@housing.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@housing.Id">Изменить</a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

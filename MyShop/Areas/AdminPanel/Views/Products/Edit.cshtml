@@ -10,23 +10,229 @@
     <div class="form-group">
         <input type="hidden" asp-for="Id"/>
     </div>
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input type="text" asp-for="Name" value="@Model.Name" class="form-control"/>
+    
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Name" class="control-label"></label>
+            <input type="text" asp-for="Name" value="@Model.Name" class="form-control"/>
+        </div>
+
+        @if (Model.Categories.Any())
+        {
+            <div class="form-group col">
+                <label asp-for="Categories" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                    <select asp-for="CategoryId" class="form-control">
+                        @foreach (var item in Model.Categories)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group col">
+                <label asp-for="Categories" class="control-label"></label>
+                <div>
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-outline-success">+</a>
+                </div>
+            </div>
+        }
     </div>
-    <div class="form-group">
+    
+<div class="form-row">
+    <div class="form-group col">
+        <label asp-for="Summary" class="control-label"></label>
+        <textarea asp-for="Summary" cols="20" rows="5" class="form-control">@Model.Summary</textarea>
+    </div>
+    <div class="form-group col">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" cols="20" rows="5" class="form-control">@Model.Description</textarea>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group col">
+        <label asp-for="UnitPrice" class="control-label"></label>
+        <input type="number" asp-for="UnitPrice" value="@Model.UnitPrice" class="form-control"/>
+    </div>
+    <div class="form-group col">
+        <label asp-for="UnitsInStock" class="control-label"></label>
+        <input type="number" asp-for="UnitsInStock" value="@Model.UnitsInStock" class="form-control"/>
+    </div>
+</div>
+    
+<div class="form-group col">
+        <label asp-for="ImageFile" class="custom-file-label">Choose file</label>
+        <input type="file" asp-for="ImageFile" value="@Model.ImageFile" class="custom-file-input"/>
+    </div>
+    
+    <div class="form-row">
+        @if (Model.Batteries.Any())
+        {
+            <div class="form-group col">
+                <label asp-for="Batteries" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <a asp-controller="Battery" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                    <select asp-for="BatteryId" class="form-control">
+                        @foreach (var item in Model.Batteries)
+                        {
+                            <option value="@item.Id">@item.Type | @item.Capacity | @item.MaxWorkingHours</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group col">
+                <label asp-for="Batteries" class="control-label"></label>
+                <div>
+                    <a asp-controller="Battery" asp-action="Index" class="btn btn-outline-success">+</a>
+                </div>
+            </div>
+        }
+    
+        @if (Model.Housings.Any())
+        {
+            <div class="form-group col">
+                <label asp-for="Housings" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <a asp-controller="Housing" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                    <select asp-for="HousingId" class="form-control">
+                        @foreach (var item in Model.Housings)
+                        {
+                            <option value="@item.Id">@item.Design | @item.Colour | @item.BodyMaterial | @item.GlassConstruction</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group col">
+                <label asp-for="Housings" class="control-label"></label>
+                <div>
+                    <a asp-controller="Housing" asp-action="Index" class="btn btn-outline-success">+</a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="form-row">
+        @if (Model.Memories.Any())
+        {
+            <div class="form-group col">
+                <label asp-for="Memories" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <a asp-controller="Memory" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                    <select asp-for="MemoryId" class="form-control">
+                        @foreach (var item in Model.Memories)
+                        {
+                            <option value="@item.Id">@item.PersistentMemory | @item.MemoryCardSupport | @item.RAM</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group col">
+                <label asp-for="Memories" class="control-label"></label>
+                <div>
+                    <a asp-controller="Memory" asp-action="Index" class="btn btn-outline-success">+</a>
+                </div>
+            </div>
+        }
+        
+        @if (Model.Processors.Any())
+        {
+            <div class="form-group col">
+                <label asp-for="Processors" class="control-label"></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <a asp-controller="Processor" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                    <select asp-for="HousingId" class="form-control">
+                        @foreach (var item in Model.Processors)
+                        {
+                            <option value="@item.Id">@item.Cores | 
+                                @item.Microarchitecture | 
+                                @item.Platform | 
+                                @item.ClockSpeed |
+                                @item.GraphicsAccelerator |
+                                @item.ProcessorType |
+                                @item.TechnicalProcess |
+                                @item.GPUFrequency</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group col">
+                <label asp-for="Processors" class="control-label"></label>
+                <div>
+                    <a asp-controller="Processor" asp-action="Index" class="btn btn-outline-success">+</a>
+                </div>
+            </div>
+        }
+    </div>
+    
+    <div class="form-row">
+        @if (Model.Screens.Any())
+            {
+                <div class="form-group col">
+                    <label asp-for="Screens" class="control-label"></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <a asp-controller="Screen" asp-action="Index" class="btn btn-outline-success">+</a>
+                        </div>
+                        <select asp-for="HousingId" class="form-control">
+                            @foreach (var item in Model.Screens)
+                            {
+                                <option value="@item.Id">@item.Diagonal | @item.Multitouch | @item.Resolution | @item.Surface | @item.MatrixType</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group col">
+                    <label asp-for="Screens" class="control-label"></label>
+                    <div>
+                        <a asp-controller="Screen" asp-action="Index" class="btn btn-outline-success">+</a>
+                    </div>
+                </div>
+            }
+    </div>
+    
+    @*<div class="form-group">
         <label asp-for="Slug" class="control-label"></label>
         <input type="text" asp-for="Slug" value="@Model.Slug" class="form-control"/>
-    </div>
-    <div class="form-group">
+    </div>*@
+    @*<div class="form-group">
         <label asp-for="Summary" class="control-label"></label>
         <input type="text" asp-for="Summary" value="@Model.Summary" class="form-control"/>
     </div>
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
         <input type="text" asp-for="Description" value="@Model.Description" class="form-control"/>
-    </div>
-    <div class="form-group">
+    </div>*@
+    @*<div class="form-group">
         <label asp-for="UnitPrice" class="control-label"></label>
         <input type="number" asp-for="UnitPrice" value="@Model.UnitPrice" class="form-control"/>
     </div>
@@ -46,7 +252,7 @@
                 <option value="@item.Id">@item.Name</option>
             }
         </select>
-    </div>
+    </div>*@
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
     </div>

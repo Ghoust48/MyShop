@@ -1,0 +1,211 @@
+﻿@model PaginatedList<Product>
+
+
+<div class="shop-product-pagination">
+    <!-- Shop Product Wrap Start -->
+    <div class="shop-product-wrap grid row">
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 col-12 pb-30 pt-10">
+    
+                    <!-- Product Start -->
+                    <div class="ee-product">
+    
+                        <!-- Image -->
+                        <div class="image">
+                            <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug" class="img">
+                                <img src="assets/images/product/@item.ImageFile" alt="Product Image">
+                            </a>
+                            <div class="wishlist-compare">
+                                <form asp-controller="Wishlist" asp-action="Add" method="post" name="AddToWishlistForm" id="add_wishlist_form">
+                                    <a href="javascript:;" onclick="parentNode.submit();" data-tooltip="Wishlist">
+                                        <i class="ti-heart"></i>
+                                    </a>
+                                    <input type="hidden" asp-for="@item.Id" name="productId"/>
+                                </form>
+                            </div>
+                            <form asp-controller="Cart" asp-action="Add" method="post" name="addToCartForm" id="add_cart_form">
+                                <a href="javascript:;" onclick="parentNode.submit();" class="add-to-cart">
+                                    <i class="ti-shopping-cart"></i><span>ADD TO CART</span>
+                                </a>
+                                <input type="hidden" asp-for="@item.Id" name="productId"/>
+                            </form>
+                        </div>
+    
+                        <!-- Content -->
+                        <div class="content">
+    
+                            <!-- Category & Title -->
+                            <div class="category-title">
+    
+                                <a asp-controller="Products" asp-action="Index" class="cat">@item.Category.Name</a>
+                                <h5 class="title">
+                                    <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug">@item.Name</a>
+                                </h5>
+    
+                            </div>
+    
+                            <!-- Price & Ratting -->
+                            <div class="price-ratting">
+    
+                                <h5 class="price">$@item.UnitPrice</h5>
+                                <div class="ratting">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+    
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                    <!-- Product End -->
+                    <!-- Product List Start -->
+                    <div class="ee-product-list">
+    
+                        <!-- Image -->
+                        <div class="image">
+                            <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug" class="img">
+                                <img src="assets/images/product/@item.ImageFile" alt="Product Image">
+                            </a>
+                        </div>
+    
+                        <!-- Content -->
+                        <div class="content">
+    
+                            <!-- Category & Title -->
+                            <div class="head-content">
+    
+                                <div class="category-title">
+                                    <a asp-controller="Products" asp-action="Details" class="cat">@item.Category.Name</a>
+                                    <h5 class="title">
+                                        <a asp-controller="Products" asp-action="Details" asp-route-slug="@item.Slug">@item.Name</a>
+                                    </h5>
+                                </div>
+    
+                                <h5 class="price">$@item.UnitPrice</h5>
+    
+                            </div>
+    
+                            <div class="left-content">
+    
+                                <div class="ratting">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </div>
+    
+                                <div class="desc">
+                                    <p>@item.Summary</p>
+                                </div>
+    
+                                <div class="actions">
+    
+                                    <form asp-controller="Cart" asp-action="Add" method="post" name="addToCartForm" id="add_cart_form">
+                                        <a href="javascript:;" onclick="parentNode.submit();" class="add-to-cart">
+                                            <i class="ti-shopping-cart"></i><span>ADD TO CART</span>
+                                        </a>
+                                        <input type="hidden" asp-for="@item.Id" name="productId"/>
+                                    </form>
+    
+                                    <div class="wishlist-compare">
+                                        <form asp-controller="Wishlist" asp-action="Add" method="post" name="AddToWishlistForm" id="add_wishlist_form">
+                                            <a href="javascript:;" onclick="parentNode.submit();" data-tooltip="Wishlist">
+                                                <i class="ti-heart"></i>
+                                            </a>
+                                            <input type="hidden" asp-for="@item.Id" name="productId"/>
+                                        </form>
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+    
+                            <div class="right-content">
+                                <div class="specification">
+                                    <h5>Specifications</h5>
+                                    <ul>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Screen.Diagonal): @item.Screen.Diagonal</li>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Screen.Resolution): @item.Screen.Resolution</li>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Processor.ProcessorType): @item.Processor.ProcessorType</li>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Processor.Cores): @item.Processor.Cores</li>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Memory.RAM): @item.Memory.RAM</li>
+                                        <li>@Html.DisplayNameForInnerType((Product product) => product.Memory.PersistentMemory): @item.Memory.PersistentMemory</li>
+                                    </ul>
+                                </div>
+                                <span class="availability">
+                                    Availability:
+                                    <span>
+                                        @if (item.UnitsInStock > 0)
+                                        {
+                                            @: In Stock
+                                        }
+                                        else
+                                        {
+                                            @: Not Available
+                                        }
+                                    </span>
+                                </span>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                    <!-- Product List End -->
+    
+                </div>
+            }
+        }
+    </div>
+    <!-- Shop Product Wrap End -->
+    
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    }
+    <!-- Pagination -->
+    <div class="row mt-30">
+                        <div class="col">
+    
+                            <ul class="pagination">
+                                <li>
+                                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="@prevDisabled">
+                                        <i class="fa fa-angle-left"></i>
+                                        Back
+                                    </a>
+                                </li>
+                                @for (var i = 1; i <= Model.TotalPages; i++)
+                                {
+                                    if (Model.PageIndex == i)
+                                    {
+                                        <li class="active">
+                                            <a asp-action="Index" asp-route-pageNumber="@Model.PageIndex">@i</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <a asp-action="Index" asp-route-pageNumber="@Model.PageIndex">@i</a>
+                                        </li>
+                                    }
+                                }
+                                
+                                <li>
+                                    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="@nextDisabled">
+                                        Next
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+    <!-- Pagination End -->
+</div>

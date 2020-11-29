@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyShop.Models
 {
@@ -13,6 +14,7 @@ namespace MyShop.Models
 
         public decimal GrandTotal { get; set; }
         
+        [Required]
         public Address ShippingAddress { get; set; }
 
         public List<OrderItem> OrderItems { get; set; }

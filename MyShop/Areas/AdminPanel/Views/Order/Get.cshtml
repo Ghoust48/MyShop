@@ -1,0 +1,50 @@
+﻿@model Order
+
+@{
+    ViewBag.Title = "О заказе";
+    Layout = "_Layout";
+}
+
+<h2>@ViewBag.Title</h2>
+<h5>@Html.DisplayNameFor(o => o.UserName): @Html.DisplayFor(o => o.UserName)</h5>
+<div class="row">
+    <div class="col">
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.FirstName): @Html.DisplayFor(o => o.ShippingAddress.FirstName)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.LastName): @Html.DisplayFor(o => o.ShippingAddress.LastName)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.EmailAddress): @Html.DisplayFor(o => o.ShippingAddress.EmailAddress)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.PhoneNo): @Html.DisplayFor(o => o.ShippingAddress.PhoneNo)</p>
+    </div>
+    <div class="col">
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.Country): @Html.DisplayFor(o => o.ShippingAddress.Country)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.State): @Html.DisplayFor(o => o.ShippingAddress.State)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.City): @Html.DisplayFor(o => o.ShippingAddress.City)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.AddressLine): @Html.DisplayFor(o => o.ShippingAddress.AddressLine)</p>
+        <p>@Html.DisplayNameFor(o => o.ShippingAddress.ZipCode): @Html.DisplayFor(o => o.ShippingAddress.ZipCode)</p>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameForInnerType((OrderItem orderItem) => orderItem.Product.Name)</th>
+        <th>@Html.DisplayNameForInnerType((OrderItem orderItem) => orderItem.Quantity)</th>
+        <th>@Html.DisplayNameForInnerType((OrderItem orderItem) => orderItem.TotalPrice)</th>
+    </tr>
+    @foreach (var item in Model.OrderItems)
+    {
+        <tr>
+            <td>@item.Product.Name</td>
+            <td>@item.Quantity</td>
+            <td>@item.TotalPrice</td>
+        </tr>
+    }
+</table>
+
+<div class="row">
+    <div class="col">
+        <p>@Html.DisplayNameFor(o => o.Status): @Html.DisplayFor(o => o.Status)</p>
+        <p>@Html.DisplayNameFor(o => o.PaymentMethod): @Html.DisplayFor(o => o.PaymentMethod)</p>
+    </div>
+    <div class="col">
+        <p>@Html.DisplayNameFor(o => o.GrandTotal): @Html.DisplayFor(o => o.GrandTotal)</p>
+    </div>
+</div>

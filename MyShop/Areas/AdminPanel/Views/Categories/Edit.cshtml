@@ -4,24 +4,34 @@
     ViewBag.Title = "Изменение категории";
 }
 
-<h2>Изменение категории</h2>
+<h2>@ViewBag.Title</h2>
 <form asp-area="AdminPanel" asp-action="Edit" asp-controller="Categories">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <input type="hidden" asp-for="Id"/>
     </div>
-    <div class="form-group">
-        <label asp-for="Name" class="control-label"></label>
-        <input type="text" asp-for="Name" class="form-control"/>
+    
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Name" class="control-label"></label>
+            <input type="text" asp-for="Name" value="@Model.Name" class="form-control"/>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Description" class="control-label"></label>
-        <input type="text" asp-for="Description" class="form-control"/>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" rows="5" class="form-control">@Model.Description</textarea>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="ImageName" class="control-label"></label>
-        <input type="file" asp-for="ImageName" class="form-control"/>
+
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="ImageName" class="custom-file-label">Выберите файл</label>
+            <input type="file" asp-for="ImageName" value="@Model.ImageName" class="custom-file-input"/>
+        </div>
     </div>
+    
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
     </div>

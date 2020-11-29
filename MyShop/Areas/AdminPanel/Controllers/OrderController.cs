@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyShop.Data;
+using MyShop.Models;
 
 namespace MyShop.Areas.AdminPanel.Controllers
 {
@@ -26,6 +28,25 @@ namespace MyShop.Areas.AdminPanel.Controllers
                 .ToListAsync();
 
             return View(orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int orderId)
+        {
+            var orders = await _context.Orders
+                .Include(o => o.ShippingAddress)
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .ToListAsync();
+            
+            /*var orders1 = _context.Orders
+                .Include(o => o.ShippingAddress)
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .Where(o => o.Id == orderId)
+                .AsEnumerable();*/
+
+            return View(orders.FirstOrDefault(o => o.Id == orderId));
         }
     }
 }

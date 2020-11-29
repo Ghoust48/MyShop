@@ -1,0 +1,31 @@
+﻿@model Memory
+
+@{
+    ViewBag.Title = "Создание памяти";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-area="AdminPanel" asp-action="Create" asp-controller="Memory">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    
+    <div class="form-row">
+        <div class="form-group col">
+            <label asp-for="PersistentMemory" class="control-label"></label>
+            <input type="text" asp-for="PersistentMemory" class="form-control"/>
+        </div>
+        <div class="form-group col">
+            <label asp-for="RAM" class="control-label"></label>
+            <input type="text" asp-for="RAM" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="MemoryCardSupport" class="form-check-input"/>
+        <label asp-for="MemoryCardSupport" class="form-check-label"></label>
+    </div>
+    
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary"/>
+    </div>
+</form>

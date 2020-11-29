@@ -35,7 +35,7 @@
 
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        @*<div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
                 <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -44,7 +44,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -52,49 +52,78 @@
                 <li class="nav-item">
                     <a asp-controller="Home" asp-action="Index" class="nav-link @Url.MakeActiveClass("Home", "Index")">
                         <i class="nav-icon fas fa-home"></i>
-                        <p>Home</p>
+                        <p>Домой</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a asp-area="AdminPanel" asp-controller="Products" asp-action="Index" class="nav-link @Url.MakeActiveClass("Products", "Index")">
                         <i class="nav-icon fas fa-shopping-basket"></i>
-                        <p>Products</p>
+                        <p>Товары</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a asp-area="AdminPanel" asp-controller="Categories" asp-action="Index" class="nav-link @Url.MakeActiveClass("Categories", "Index")">
                         <i class="nav-icon fas fa-sitemap"></i>
-                        <p>Categories</p>
+                        <p>Категории</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a asp-area="AdminPanel" asp-controller="Order" asp-action="Index" class="nav-link @Url.MakeActiveClass("Order", "Index")">
-                        <i class="nav-icon fas fa-address-boo"></i>
-                        <p>Orders</p>
+                        <i class="nav-icon fas fa-address-book"></i>
+                        <p>Заказы</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a asp-area="AdminPanel" asp-controller="Users" asp-action="Index" class="nav-link @Url.MakeActiveClass("Users", "Index")">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>Users</p>
+                        <p>Пользователи</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a asp-area="AdminPanel" asp-controller="Roles" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
                         <i class="nav-icon fas fa-users"></i>
-                        <p>Roles</p>
+                        <p>Роли</p>
                     </a>
                 </li>
-
-                @*@if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a asp-controller="Home" asp-action="Privacy" class="nav-link @Url.MakeActiveClass("Home", "Privacy")">
-                            <i class="nav-icon fas fa-lock"></i>
-                            <p>Privacy</p>
-                        </a>
-                    </li>
-                }*@
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>Характеристики</p>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a asp-area="AdminPanel" asp-controller="Screen" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Экран</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="AdminPanel" asp-controller="Processor" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Процессор</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="AdminPanel" asp-controller="Memory" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Память</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="AdminPanel" asp-controller="Housing" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Корпус</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="AdminPanel" asp-controller="Battery" asp-action="Index" class="nav-link @Url.MakeActiveClass("Roles", "Index")">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Аккамулятор</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
