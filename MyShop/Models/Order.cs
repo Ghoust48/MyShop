@@ -17,10 +17,10 @@ namespace MyShop.Models
         public Address ShippingAddress { get; set; }
 
         public List<OrderItem> OrderItems { get; set; }
-        
-        public PaymentMethod PaymentMethod { get; set; }
-        
-        public OrderStatus Status { get; set; }
+
+        public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
+
+        public OrderStatus Status { get; set; } = OrderStatus.Progress;
     }
     
     public enum OrderStatus

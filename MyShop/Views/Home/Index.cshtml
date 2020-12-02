@@ -110,7 +110,17 @@
                     <!-- Tab Filter Toggle -->
                     <button class="product-tab-filter-toggle">showing: <span></span><i class="icofont icofont-simple-down"></i></button>
 
-                    @await Component.InvokeAsync("Category")
+                    <ul class="nav product-tab-list">
+                        <li><a class="active" data-toggle="tab" href="#tab-all">all</a></li>
+                        @foreach (var item in Model.CategoryProducts.Keys)
+                        {
+                            <li>
+                                <a data-toggle="tab" href="#tab-@item.Name">
+                                    @item.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div><!-- Product Tab Filter End -->
             <!-- Product Tab Content Start -->
@@ -156,63 +166,6 @@
                             </div>
                         </div>
                     }
-                    @*<div class="tab-pane fade " id="tab-@Model.Categories[0].Name">
-                        <div class="product-slider-wrap product-slider-arrow-one">
-                            <!-- Product Slider Start -->
-                            <div class="product-slider product-slider-4">
-                                <!-- Product Start -->
-                                @foreach (var item in Model.Products
-                                    .Where(p => p.Category.Name == Model.Categories[0].Name))
-                                {
-                                    <div class="col pb-20 pt-10">
-                                        @{
-                                            await Html.RenderPartialAsync("_Product", item);
-                                        }
-                                    </div>
-                                }
-                                <!-- Product End -->
-                            </div>
-                            <!-- Product Slider End -->
-                        </div>
-                    </div>
-                    <div class="tab-pane fade " id="tab-@Model.Categories[1].Name">
-                        <div class="product-slider-wrap product-slider-arrow-one">
-                            <!-- Product Slider Start -->
-                            <div class="product-slider product-slider-4">
-                                <!-- Product Start -->
-                                @foreach (var item in Model.Products
-                                    .Where(p => p.Category.Name == Model.Categories[1].Name))
-                                {
-                                    <div class="col pb-20 pt-10">
-                                        @{
-                                            await Html.RenderPartialAsync("_Product", item);
-                                        }
-                                    </div>
-                                }
-                                <!-- Product End -->
-                            </div>
-                            <!-- Product Slider End -->
-                        </div>
-                    </div>
-                    <div class="tab-pane fade " id="tab-@Model.Categories[2].Name">
-                        <div class="product-slider-wrap product-slider-arrow-one">
-                            <!-- Product Slider Start -->
-                            <div class="product-slider product-slider-4">
-                                <!-- Product Start -->
-                                @foreach (var item in Model.Products
-                                    .Where(p => p.Category.Name == Model.Categories[2].Name))
-                                {
-                                    <div class="col pb-20 pt-10">
-                                        @{
-                                            await Html.RenderPartialAsync("_Product", item);
-                                        }
-                                    </div>
-                                }
-                                <!-- Product End -->
-                            </div>
-                            <!-- Product Slider End -->
-                        </div>
-                    </div>*@
                 </div>
             </div><!-- Product Tab Content End -->
 

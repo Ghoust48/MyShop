@@ -7,11 +7,11 @@ namespace MyShop.Models
         public int Id { get; set; }
         
         [Required]
-        [MinLength(5), MaxLength(100)]
+        [MinLength(2), MaxLength(100)]
         public string FirstName { get; set; }
         
         [Required]
-        [MinLength(5), MaxLength(100)]
+        [MinLength(2), MaxLength(100)]
         public string LastName { get; set; }
         
         [Required]

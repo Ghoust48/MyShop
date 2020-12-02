@@ -34,10 +34,15 @@ namespace MyShop.Controllers
                 .AsQueryable();
 
             var categoryQuery = _context.Categories.OrderBy(c => c.Name);
+            
+            /*SELECT DISTINCT [c].[Id], [c].[Description], [c].[ImageName], [c].[Name]
+            FROM [Categories] AS [c]*/
+            var categoryList = new List<Category>(await categoryQuery.AsNoTracking().Distinct().ToListAsync());
 
-            var categoryList = new List<Category>(await categoryQuery.Distinct().ToListAsync());
-
-            var productList = await products.ToListAsync();
+            /*SELECT [p].[Id], [p].[BatteryId], [p].[CategoryId], [p].[Description], [p].[HousingId], [p].[ImageFile], [p].[MemoryId], [p].[Name], [p].[ProcessorId], [p].[ScreenId], [p].[Slug], [p].[Summary], [p].[UnitPrice], [p].[UnitsInStock], [c].[Id], [c].[Description], [c].[ImageName], [c].[Name]
+            FROM [Products] AS [p]
+            LEFT JOIN [Categories] AS [c] ON [p].[CategoryId] = [c].[Id]*/
+            var productList = await products.AsNoTracking().ToListAsync();
 
             var dictionary = new DictionaryViewModel
             {

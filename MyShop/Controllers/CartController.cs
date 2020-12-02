@@ -33,21 +33,6 @@ namespace MyShop.Controllers
             return View(carts.FirstOrDefault(c=> c.User.UserName == User.Identity.Name));
         }
 
-        private async Task<Cart> Create()
-        {
-            var cart = new Cart
-            {
-                //UserName = User.Identity.Name,
-                //User = User
-                CartItems = new List<CartItem>()
-            };
-
-            _context.Carts.Add(cart);
-            await _context.SaveChangesAsync();
-
-            return cart;
-        }
-
         [HttpPost]
         public async Task<IActionResult> Add(int productId, int quantity = 1)
         {

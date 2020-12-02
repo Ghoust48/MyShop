@@ -47,7 +47,8 @@ namespace MyShop.Controllers
                 {
                     // установка куки
                     await _signInManager.SignInAsync(user, false);
-                    await Initialize(user);
+                    // Использовать триггер на стороне БД или этот метод
+                    //await Initialize(user); 
                     return RedirectToAction("Index", "Home");
                 }
                 else

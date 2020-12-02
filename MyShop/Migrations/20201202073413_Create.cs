@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyShop.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -299,7 +299,7 @@ namespace MyShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    GrandTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GrandTotal = table.Column<decimal>(type: "money", nullable: false),
                     ShippingAddressId = table.Column<int>(type: "int", nullable: true),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -351,7 +351,7 @@ namespace MyShop.Migrations
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "money", nullable: true),
                     UnitsInStock = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true),
                     BatteryId = table.Column<int>(type: "int", nullable: true),
@@ -408,7 +408,7 @@ namespace MyShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    TotalPrice = table.Column<decimal>(type: "money", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     CartId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -436,7 +436,7 @@ namespace MyShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "money", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: true),
                     OrderId = table.Column<int>(type: "int", nullable: true)
                 },

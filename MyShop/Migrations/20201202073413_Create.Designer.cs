@@ -10,8 +10,8 @@ using MyShop.Data;
 namespace MyShop.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20201129133911_Initial")]
-    partial class Initial
+    [Migration("20201202073413_Create")]
+    partial class Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -263,7 +263,7 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -348,7 +348,7 @@ namespace MyShop.Migrations
                         .UseIdentityColumn();
 
                     b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
@@ -388,7 +388,7 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -476,7 +476,7 @@ namespace MyShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<int?>("UnitsInStock")
                         .HasColumnType("int");

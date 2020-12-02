@@ -261,7 +261,7 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -346,7 +346,7 @@ namespace MyShop.Migrations
                         .UseIdentityColumn();
 
                     b.Property<decimal>("GrandTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("int");
@@ -386,7 +386,7 @@ namespace MyShop.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -474,7 +474,7 @@ namespace MyShop.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
 
                     b.Property<int?>("UnitsInStock")
                         .HasColumnType("int");

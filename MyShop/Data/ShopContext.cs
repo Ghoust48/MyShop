@@ -45,6 +45,18 @@ namespace MyShop.Data
                 .HasOne(u => u.Wishlist)
                 .WithOne(w => w.User)
                 .HasForeignKey<Wishlist>(w => w.UserId);
+
+            builder.Entity<Product>()
+                .Property(p => p.UnitPrice).HasColumnType("money");
+            
+            builder.Entity<CartItem>()
+                .Property(ci => ci.TotalPrice).HasColumnType("money");
+            
+            builder.Entity<Order>()
+                .Property(o => o.GrandTotal).HasColumnType("money");
+            
+            builder.Entity<OrderItem>()
+                .Property(oi => oi.TotalPrice).HasColumnType("money");
         }
 
         public DbSet<Product> Products { get; set; }
