@@ -1,6 +1,6 @@
 ﻿@*@model IEnumerable<Product>*@
 @using Microsoft.AspNetCore.Mvc.Rendering
-@model MyShop.ViewModels.Product.ProductCategoryViewModel
+@model MyShop.ViewModels.Product.DictionaryViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -134,6 +134,28 @@
                             <!-- Product Slider End -->
                         </div>
                     </div>
+                    @foreach (var category in Model.CategoryProducts.Keys)
+                    {
+                        <div class="tab-pane fade " id="tab-@category.Name">
+                            <div class="product-slider-wrap product-slider-arrow-one">
+                                <!-- Product Slider Start -->
+                                <div class="product-slider product-slider-4">
+                                    <!-- Product Start -->
+                                     @*Model.CategoryProducts.Values.SelectMany(products => products)*@
+                                    @foreach (var item in Model.CategoryProducts[category])
+                                    {
+                                        <div class="col pb-20 pt-10">
+                                            @{
+                                                await Html.RenderPartialAsync("_Product", item);
+                                            } 
+                                        </div>
+                                    }
+                                    <!-- Product End -->
+                                </div>
+                                <!-- Product Slider End -->
+                            </div>
+                        </div>
+                    }
                     @*<div class="tab-pane fade " id="tab-@Model.Categories[0].Name">
                         <div class="product-slider-wrap product-slider-arrow-one">
                             <!-- Product Slider Start -->

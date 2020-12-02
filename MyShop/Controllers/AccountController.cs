@@ -108,12 +108,12 @@ namespace MyShop.Controllers
         {
             var wishlist = new Wishlist
             {
-                UserName = user.Email,
+                User = user,
             };
                     
             var cart = new Cart
             {
-                UserName = user.Email,
+                User = user,
                 CartItems = new List<CartItem>()
             };
 

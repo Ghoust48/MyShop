@@ -25,18 +25,20 @@ namespace MyShop.Controllers
             }
             
             var carts = await _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .ToListAsync();
             
-            return View(carts.FirstOrDefault(c=> c.UserName == User.Identity.Name));
+            return View(carts.FirstOrDefault(c=> c.User.UserName == User.Identity.Name));
         }
 
         private async Task<Cart> Create()
         {
             var cart = new Cart
             {
-                UserName = User.Identity.Name,
+                //UserName = User.Identity.Name,
+                //User = User
                 CartItems = new List<CartItem>()
             };
 
@@ -55,12 +57,13 @@ namespace MyShop.Controllers
             }
 
             var list = await _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .ToListAsync();
 
-            var cart = list.FirstOrDefault(c => c.UserName == User.Identity.Name)
-                       ?? await Create();
+            var cart = list.FirstOrDefault(c => c.User.UserName == User.Identity.Name);
+                       //?? await Create();
             
             /*var cart = _context.Carts.FirstOrDefault(c => c.UserName == User.Identity.Name) 
                        ?? await Create();*/
@@ -99,11 +102,12 @@ namespace MyShop.Controllers
             }
             
             var list = await _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .ToListAsync();
             
-            var cart = list.FirstOrDefault(c => c.UserName == User.Identity.Name);
+            var cart = list.FirstOrDefault(c => c.User.UserName == User.Identity.Name);
 
             if (cart == null)
             {

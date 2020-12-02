@@ -21,10 +21,11 @@ namespace MyShop.Views.Shared.Components.WishlistCounter
             if (User.Identity.IsAuthenticated)
             {
                 var wishlists = await _context.Wishlists
+                    .Include(w => w.User)
                     .Include(w => w.ProductWishlists)
                     .ToListAsync();
 
-                var wishlist = wishlists.FirstOrDefault(w => w.UserName == User.Identity.Name);
+                var wishlist = wishlists.FirstOrDefault(w => w.User.UserName == User.Identity.Name);
             
                 return View(wishlist.ProductWishlists.Count);
             }

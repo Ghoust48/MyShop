@@ -7,10 +7,9 @@ namespace MyShop.Models
     {
         public int Id { get; set; }
 
-        public string UserName { get; set; }
-        
+        //public string UserName { get; set; }
 
-        /*public User User { get; set; }*/
+        public User User { get; set; }
 
         public decimal GrandTotal { get; set; }
         

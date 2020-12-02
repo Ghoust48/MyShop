@@ -232,10 +232,14 @@ namespace MyShop.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Carts");
                 });
@@ -353,12 +357,14 @@ namespace MyShop.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ShippingAddressId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -610,10 +616,14 @@ namespace MyShop.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Wishlists");
                 });
@@ -669,6 +679,15 @@ namespace MyShop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyShop.Models.Cart", b =>
+                {
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("MyShop.Models.Cart", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyShop.Models.CartItem", b =>
                 {
                     b.HasOne("MyShop.Models.Cart", null)
@@ -688,7 +707,13 @@ namespace MyShop.Migrations
                         .WithMany()
                         .HasForeignKey("ShippingAddressId");
 
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("ShippingAddress");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyShop.Models.OrderItem", b =>
@@ -762,6 +787,15 @@ namespace MyShop.Migrations
                     b.Navigation("Wishlist");
                 });
 
+            modelBuilder.Entity("MyShop.Models.Wishlist", b =>
+                {
+                    b.HasOne("MyShop.Models.User", "User")
+                        .WithOne("Wishlist")
+                        .HasForeignKey("MyShop.Models.Wishlist", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MyShop.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
@@ -780,6 +814,15 @@ namespace MyShop.Migrations
             modelBuilder.Entity("MyShop.Models.Product", b =>
                 {
                     b.Navigation("ProductWishlists");
+                });
+
+            modelBuilder.Entity("MyShop.Models.User", b =>
+                {
+                    b.Navigation("Cart");
+
+                    b.Navigation("Orders");
+
+                    b.Navigation("Wishlist");
                 });
 
             modelBuilder.Entity("MyShop.Models.Wishlist", b =>

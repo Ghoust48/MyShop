@@ -35,13 +35,26 @@ namespace MyShop.Controllers
 
             var categoryQuery = _context.Categories.OrderBy(c => c.Name);
 
-            var productCategory = new ProductCategoryViewModel
+            var categoryList = new List<Category>(await categoryQuery.Distinct().ToListAsync());
+
+            var productList = await products.ToListAsync();
+
+            var dictionary = new DictionaryViewModel
+            {
+                CategoryProducts = categoryList
+                    .ToDictionary(category => category, 
+                        category => productList.Where(p => p.Category.Id == category.Id).ToList()),
+                Products = productList
+            };
+
+
+            /*var productCategory = new ProductCategoryViewModel
             {
                 Categories = new List<Models.Category>(await categoryQuery.Distinct().ToListAsync()),
                 Products = await products.ToListAsync()
-            };
+            };*/
 
-            return View(productCategory);
+            return View(dictionary);
         }
 
         public IActionResult Privacy()

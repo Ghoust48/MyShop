@@ -25,18 +25,19 @@ namespace MyShop.Controllers
             }
             
             var wishlists = await _context.Wishlists
+                .Include(w => w.User)
                 .Include(w => w.ProductWishlists)
                 .ThenInclude(pw => pw.Product)
                 .ToListAsync();
             
-            return View(wishlists.FirstOrDefault(w => w.UserName == User.Identity.Name));
+            return View(wishlists.FirstOrDefault(w => w.User.UserName == User.Identity.Name));
         }
 
         private async Task<Wishlist> Create()
         {
             var wishlist = new Wishlist
             {
-                UserName = User.Identity.Name,
+                //UserName = User.Identity.Name,
             };
 
             _context.Wishlists.Add(wishlist);
@@ -53,12 +54,13 @@ namespace MyShop.Controllers
             }
             
             var list = await _context.Wishlists
+                .Include(w => w.User)
                 .Include(w => w.ProductWishlists)
                 .ThenInclude(pw => pw.Product)
                 .ToListAsync();
 
-            var wishlist = list.FirstOrDefault(w => w.UserName == User.Identity.Name) 
-                           ?? await Create();
+            var wishlist = list.FirstOrDefault(w => w.User.UserName == User.Identity.Name);
+                           //?? await Create();
 
             var product = _context.Products.FirstOrDefault(p => p.Id == productId);
 
@@ -91,6 +93,7 @@ namespace MyShop.Controllers
             }
             
             var list = await _context.Wishlists
+                .Include(w => w.User)
                 .Include(w => w.ProductWishlists)
                 .ThenInclude(pw => pw.Product)
                 .ToListAsync();

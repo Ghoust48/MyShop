@@ -24,6 +24,7 @@ namespace MyShop.Controllers
         public async Task<IActionResult> Add(int cartId)
         {
             var carts = await _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .ToListAsync();
@@ -37,7 +38,7 @@ namespace MyShop.Controllers
 
             var order = new Order
             {
-                UserName = cart.UserName,
+                User = cart.User,
                 Status = OrderStatus.Progress,
                 ShippingAddress = new Address(),
                 GrandTotal = cart.GrandTotal,
@@ -56,11 +57,12 @@ namespace MyShop.Controllers
         public async Task<IActionResult> Add(Order orderModel)
         {
             var cart = _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
-                .FirstOrDefault(c => c.UserName == User.Identity.Name);
+                .FirstOrDefault(c => c.User.UserName == User.Identity.Name);
 
-            orderModel.UserName = cart.UserName;
+            orderModel.User = cart.User;
             orderModel.GrandTotal = cart.GrandTotal;
             orderModel.OrderItems = cart.CartItems.Select(ci => new OrderItem
             {
@@ -110,6 +112,7 @@ namespace MyShop.Controllers
             }
             
             var orders = await _context.Orders
+                .Include(o => o.User)
                 .Include(o => o.ShippingAddress)
                 .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
@@ -124,6 +127,7 @@ namespace MyShop.Controllers
         public async Task<IActionResult> Invoice(int orderId)
         {
             var orders = await _context.Orders
+                .Include(o => o.User)
                 .Include(o => o.ShippingAddress)
                 .Include(o => o.OrderItems)
                 .ThenInclude(oi => oi.Product)
@@ -137,11 +141,12 @@ namespace MyShop.Controllers
         private async Task ClearCart()
         {
             var carts = await _context.Carts
+                .Include(c => c.User)
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .ToListAsync();
 
-            var cart = carts.FirstOrDefault(c => c.UserName == User.Identity.Name);
+            var cart = carts.FirstOrDefault(c => c.User.UserName == User.Identity.Name);
 
             if (cart == null)
             {

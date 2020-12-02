@@ -35,6 +35,16 @@ namespace MyShop.Data
                 .HasOne(pw => pw.Wishlist)
                 .WithMany(w => w.ProductWishlists)
                 .HasForeignKey(pw => pw.WishlistId);
+            
+            builder.Entity<User>()
+                .HasOne(u => u.Cart)
+                .WithOne(c => c.User)
+                .HasForeignKey<Cart>(c => c.UserId);
+            
+            builder.Entity<User>()
+                .HasOne(u => u.Wishlist)
+                .WithOne(w => w.User)
+                .HasForeignKey<Wishlist>(w => w.UserId);
         }
 
         public DbSet<Product> Products { get; set; }

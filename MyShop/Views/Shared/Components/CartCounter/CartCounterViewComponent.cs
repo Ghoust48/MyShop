@@ -21,9 +21,10 @@ namespace MyShop.Views.Shared.Components.CartCounter
             {
                 var carts = await _context.Carts
                     .Include(c => c.CartItems)
+                    .Include(c => c.User)
                     .ToListAsync();
 
-                var cart = carts.FirstOrDefault(c => c.UserName == User.Identity.Name);
+                var cart = carts.FirstOrDefault(c => c.User.UserName == User.Identity.Name);
                 return View(cart.Quantity);
             }
 
